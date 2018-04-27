@@ -1,0 +1,21 @@
+{
+  "name": "ext-node-sql",
+  "version": "2.0.0",
+  "description": "ext-node-sql is a simple ExtJS Direct backend connector for ms sql api for create/read/update/destroy methods",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "body-parser": "*",
+    "express": "4.16.3",
+    "logger-request": "3.8.0",
+    "mssql": "3.3.0"
+  },
+  "author": "Brad Parrott",
+  "license": "GPL-3.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bradparrott/ext-node-sql"
+  }
+}
