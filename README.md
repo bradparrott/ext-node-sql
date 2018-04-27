@@ -26,4 +26,4 @@ ExtJS Client Configuration:
   
   
 Final Thoughts:
-I hope this helps those who use the ExtJS framework, as I have searched far and long for an easy to use back-end connector for MS SQL. I realized this is not an enterprise solution but it should help those who wish to get an idea of how to produce a server standard for themselves or improve upon what I've written. I've done my best to comment what I have, although the routing practices and module orgranization I'm sure can be improved upon. SO PLEASE FEEL FREE TO FORK AND IMPROVE!!!
+I hope this helps those who use the ExtJS framework, as I have searched far and long for an easy to use back-end connector for MS SQL. I realize this is not an enterprise solution, but it should help those who wish to get an idea of how to produce a server standard for themselves or improve upon what I've written. I've done my best to comment what I have, although the routing practices and module orgranization I'm sure can be improved upon. SO PLEASE FEEL FREE TO FORK AND IMPROVE!!!
