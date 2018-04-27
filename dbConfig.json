@@ -1,6 +1,6 @@
 {
-  "user":"bpc",
-  "password":"bpc123",
+  "user":"username",
+  "password":"password",
   "server":"localhost",
-  "database":"bpc"
+  "database":"dbname"
 }
