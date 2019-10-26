@@ -4,7 +4,7 @@ var express = require('express'),
   bodyParser = require('body-parser'),
   ext = require('./ext'),
   app = express(),
-  config = require('./serverConfig');
+  config = require('./server-config');
 
 // Define some middleware to use throughout the app
 app.use(bodyParser.json()); // to support JSON-encoded bodies

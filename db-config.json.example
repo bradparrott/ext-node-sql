@@ -1,0 +1,8 @@
+{
+  "user":"yourusername",
+  "password":"yourpassword",
+  "server":"localhost",
+  "port":1433,
+  "database":"dbname",
+  "encrypt":true
+}

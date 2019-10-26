@@ -1,10 +1,10 @@
 var db = require('./db'),
-  api = require('./api'),
-  config = require('./serverConfig');
+    config = require('./server-config');
 
 exports.api = function(req, res) {
   res.sendFile('api.js', {
-    "root": __dirname
+    "root": __dirname,
+    "headers": {'Content-Type': 'text/javascript'}
   });
 };
 
@@ -25,33 +25,46 @@ exports.api = function(req, res) {
    api.actions.db = [];
 
    // Callback after the query runs
-   var cb = function(recordset){
+   var cb = function(result){
 
-     // Look through each record, create the ext direct action definition, then push to the API object
-     // console.log(typeof recordset);
-     recordset.forEach(function(record){
+     //Check if there is a result object
+     if(result){
 
-       var method = {};
-       method.name = record.ROUTINE_NAME;
-       method.params = [];
-       method.len = 1;
+       //Loop through each record, create the ext direct action definition, then push to the API object
+       result.recordset.forEach(function(record){
 
-       // push the new method to the api
-       api.actions.db.push(method);
+         var method = {};
+         method.name = record.ROUTINE_NAME;
+         method.params = [];
+         method.len = 1;
 
-     });
+         // push the new method to the api
+         api.actions.db.push(method);
 
-     // Update script with the remaining Content
-     script += JSON.stringify(api);
+       });
 
-     res.writeHead(200, {
-       'Content-Type': 'text/javascript'
-     });
-     res.end(script);
+
+       // Update script with the remaining Content
+       script += JSON.stringify(api);
+
+       //Respond with the generated script
+       res.writeHead(200, {
+         'Content-Type': 'text/javascript'
+       });
+       res.end(script);
+
+     } else {
+
+       //No result, responsd with message
+       res.writeHead(200, {
+         'Content-Type': 'text/plain'
+       });
+       res.end('No result was returned.');     }
+
    };
 
    // Standard query to find stored procedures in MS SQL Server
-   var query = "SELECT ROUTINE_NAME FROM bpc.information_schema.routines " +
+   var query = "SELECT ROUTINE_NAME FROM information_schema.routines " +
                "WHERE routine_type = 'PROCEDURE' AND routine_name like '" + config.apiPrefix + "'";
 
    db.runQuery(query, cb);
@@ -76,7 +89,7 @@ exports.direct = function(req, res) {
       ', action:"' + action +
       '", method:"' + method +
       '", data:' + results + '}]';
-    //console.log('payload = ', payload);
+    console.log('payload = ', payload);
     res.writeHead(200, {
       'Content-Type': 'application/json'
     });

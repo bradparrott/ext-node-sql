@@ -1,8 +1,8 @@
-var sql = require('mssql'),
-  cfg = require('./dbConfig');
+  var sql = require('mssql'),
+    cfg = require('./db-config');
 
 
-exports.exec = function(proc, input, output, cb) {
+  exports.exec = function(proc, input, output, cb) {
   sql.connect(cfg).then(function() {
     //console.log('Connected to database');
     //console.log('input = ', input);
@@ -33,15 +33,21 @@ exports.exec = function(proc, input, output, cb) {
     console.log(err);
   });
 
-};
+  };
 
-exports.runQuery = function(query, cb){
+  exports.runQuery = function(query, cb){
   // Query
   sql.connect(cfg).then(function() {
-        new sql.Request().query(query).then(function(recordsets) {
-          // console.dir(recordsets);
-          // Return the recordset result if successful
-          cb(recordsets);
+        new sql.Request().query(query).then(function(result) {
+
+          // Return the result of the query to the callback
+          if(typeof cb === 'function'){
+            cb(result);
+          }
+
+          //Tidy up and close the connection
+          sql.close();
+
         }).catch(function(err) {
           // ... query error checks
           console.log(err);
@@ -50,4 +56,4 @@ exports.runQuery = function(query, cb){
     console.log(err);
   });
 
-};
+  };
